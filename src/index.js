@@ -1,7 +1,7 @@
 import React from 'react';
 import reactDom from 'react-dom';
-import HelloWorld from './components/HelloWorld';
+import Palindroma from './components/Palindroma';
 reactDom.render(
-    <HelloWorld />,
+    <Palindroma />,
   document.getElementById('root')
 );
