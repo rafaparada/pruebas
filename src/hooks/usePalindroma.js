@@ -1,6 +1,4 @@
 import { useState,useEffect } from "react";
-import React from 'react'
-
 const usePalindroma = () => {
 
     const [esPalindroma,setEsPalindroma]=useState();
@@ -9,7 +7,7 @@ const usePalindroma = () => {
     
     const verificarSiEsPalindroma = palabra =>{
         setMiWord(palabra.toUpperCase());
-        if(palabra === palabra.split('').reverse().join('')){
+        if(palabra.replaceAll(' ','')  === palabra.split('').reverse().join('').replaceAll(' ','')){
             setEsPalindroma(true);
         }else{
             setEsPalindroma(false);
@@ -22,7 +20,7 @@ const usePalindroma = () => {
         }else{
             setEmptyString(false);
         }
-    });
+    },[miWord]);
 
     useEffect(()=>{
         verificarSiEsPalindroma(miWord);

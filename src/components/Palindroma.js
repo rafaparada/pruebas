@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import usePalindroma from '../hooks/usePalindroma';
 const Palindroma = () =>{
     const [esPalindroma,verificarSiEsPalindroma,miWord,emptyString] = usePalindroma();
