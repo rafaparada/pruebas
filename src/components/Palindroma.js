@@ -6,6 +6,7 @@ const Palindroma = () =>{
     const comprobar = e =>{
         if(e.key === "Enter"){
             verificarSiEsPalindroma(e.target.value);
+            e.target.value = '';
         }
     }
 
