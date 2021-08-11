@@ -1,16 +1,26 @@
-import React,{useRef} from 'react'
+import React,{useState} from 'react'
 
 const TareasTabla = ({misTareas}) => {
+    const [myTodos,setMyTodos]=useState(misTareas);
+    
     const handleSetState = e =>{
         const status       = e.target.checked;
         const id           = e.target.getAttribute("data-id");
+       // const newTarea     = [...misTareas];
         const objIndex     = misTareas.findIndex((obj => obj.id == id));
         misTareas[objIndex].completada = status;
+        setMyTodos((prevTodo)=>{
+            return [...misTareas];
+        } );
     }
     const handleEliminar = id =>{
         const removeIndex = misTareas.findIndex( item => item.id === id );
         misTareas.splice( removeIndex, 1 );
+        setMyTodos((prevTodo)=>{
+            return [...prevTodo,misTareas];
+        } );
     }
+
     return (
         <div>
             <table className="table table-dark table-striped">
