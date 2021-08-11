@@ -6,11 +6,10 @@ const TareasTabla = ({misTareas}) => {
     const handleSetState = e =>{
         const status       = e.target.checked;
         const id           = e.target.getAttribute("data-id");
-       // const newTarea     = [...misTareas];
-        const objIndex     = misTareas.findIndex((obj => obj.id == id));
+        const objIndex     = misTareas.findIndex((obj => obj.id === id));
         misTareas[objIndex].completada = status;
         setMyTodos((prevTodo)=>{
-            return [...misTareas];
+            return [...prevTodo,misTareas];
         } );
     }
     const handleEliminar = id =>{
