@@ -7,7 +7,7 @@ const initialUsers = [
     {id:3,name:"Juan"},
 ];
 const Users = () => {
-    const [users,setUsers] = useState([]);
+    const [users,setUsers] = useState(initialUsers);
     const [userName,setUserName] = useState('');
     const userNameRef = useRef();
     const handleRegistrarUser = () =>{
@@ -20,7 +20,11 @@ const Users = () => {
     }
     useEffect(()=>{
         userNameRef.current.focus();
-    },[]);
+    });
+    
+    useEffect(() => {
+        console.log("Main App render");
+    })
     return (
        <div className="container">
             <div className="row">
