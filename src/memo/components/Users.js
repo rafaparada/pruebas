@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect} from 'react'
+import React,{useState,useRef,useEffect,useMemo} from 'react'
 import List from './List';
 
 const initialUsers = [
@@ -9,6 +9,7 @@ const initialUsers = [
 const Users = () => {
     const [users,setUsers] = useState(initialUsers);
     const [userName,setUserName] = useState('');
+    const [search,setSearch] = useState('');
     const userNameRef = useRef();
     const handleRegistrarUser = () =>{
         const newUser = {id:Date.now(),name:userName.toUpperCase()};
@@ -18,6 +19,21 @@ const Users = () => {
         }
         userNameRef.current.focus();
     }
+    const handleSearch = () =>{
+        setSearch(userName);
+    }
+    
+    const handleDelete = id =>{
+        setUsers(users.filter(user => user.id !== id));
+    }
+
+    const filteredUsers = useMemo(()=>
+        users.filter(user =>{
+        console.log('filter Proccess');
+        return  user.name.toLowerCase().includes(search.toLowerCase());
+    })
+    ,[search,users])
+
     useEffect(()=>{
         userNameRef.current.focus();
     });
@@ -34,8 +50,9 @@ const Users = () => {
                     <hr />
                     <input type="text" style={{textTransform:'uppercase'}} ref={userNameRef} onChange={(e)=>{setUserName(e.target.value)}} className="form-control" placeholder="Nombre de usuario" value={userName} />
                     <button className="btn btn-primary mt-4" onClick={handleRegistrarUser}>Registrar</button>
+                    <button className="btn btn-primary mt-4 ms-4" onClick={handleSearch}>Search</button>
                     <hr />
-                    <List users={users} />
+                    <List users={filteredUsers} handleDelete={handleDelete} />
                 </div>
                 <div className="col-3"></div>
 

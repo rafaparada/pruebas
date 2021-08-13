@@ -13,6 +13,7 @@ const TareasTabla = ({misTareas}) => {
         } );
     }
     const handleEliminar = id =>{
+        console.log(myTodos);
         const removeIndex = misTareas.findIndex( item => item.id === id );
         misTareas.splice( removeIndex, 1 );
         setMyTodos((prevTodo)=>{

@@ -1,17 +1,25 @@
 import React,{memo,useEffect} from 'react'
 import Item from './Item'
-const List = memo(({users}) => {
+const List = memo(({users,handleDelete}) => {
     useEffect(()=>{
-        console.log("List Render");
+       // console.log("List Render");
     });
     return (
-        <ul>
-            {
-                users.map(user=>(
-                    <Item key={user.id} user={user} />
-                ))
-            }
-        </ul>
+        <table className="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    users.map(user=>(
+                        <Item key={user.id} user={user} handleDelete={handleDelete} />
+                    ))
+                }
+            </tbody>
+        </table>
     )
 })
 
