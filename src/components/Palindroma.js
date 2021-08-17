@@ -9,7 +9,6 @@ const Palindroma = () =>{
             e.target.value = '';
         }
     }
-
     return(
         <>
             <div className="container">
