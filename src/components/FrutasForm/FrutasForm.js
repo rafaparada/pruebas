@@ -1,7 +1,8 @@
 import SuccessAlert from "../SuccessAlert";
 import useFrutasForm from "../../hooks/useFrutasForm"
+import TablaFrutas from "./TablaFrutas";
 const FrutasForm = () => {
-    const [frutas,handleInput,submitForm,successRequest] = useFrutasForm();
+    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit] = useFrutasForm();
     return (
         <div className="container mt-5">
             {successRequest ? <SuccessAlert />:''}
@@ -20,9 +21,7 @@ const FrutasForm = () => {
                     <button className="btn btn-primary mt-3">Agregar</button>
                     </form>
                     <hr />
-                    <pre>
-                        {JSON.stringify(frutas)}
-                    </pre>
+                    <TablaFrutas fetchFrutas={fetchFrutas} deleteFruit={deleteFruit} />
                    
                 </div>
                 <div className="col-3"></div>
