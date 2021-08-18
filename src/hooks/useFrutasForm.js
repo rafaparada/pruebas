@@ -22,6 +22,11 @@ import { useState,useEffect } from "react"
        });
     },[successRequest]);
 
+    useEffect(() => {
+        if(!editOn){
+            setFrutas({nombre:'',color:'',precio:''});
+        }
+    }, [editOn])
     
 
     const handleInput = (e) =>{
@@ -84,7 +89,7 @@ import { useState,useEffect } from "react"
 
 
 
-    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate]
+    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn]
     //Estaba enviando setFrutas y no lo utilizo en el componente, eso causaba un error que no podia encontrar
     //No enviar cosas que no se van utilizar
 }

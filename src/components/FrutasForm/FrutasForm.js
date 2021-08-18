@@ -1,15 +1,17 @@
 import SuccessAlert from "../SuccessAlert";
 import useFrutasForm from "../../hooks/useFrutasForm"
 import TablaFrutas from "./TablaFrutas";
+import Loading from './Loading';
 const FrutasForm = () => {
-    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate] = useFrutasForm();
+    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn] = useFrutasForm();
     return (
         <div className="container mt-5">
+            <Loading />
             {successRequest ? <SuccessAlert mensajeReq={mensajeReq} />:''}
             <div className="row">
                 <div className="col-3"></div>
                 <div className="col-6 mt-3">
-                    <h5>FRUTAS FORM</h5>
+                    <h5>{editOn ? 'MODIFICAR FRUTA':' REGISTRAR FRUTA'}</h5>
                     <hr />
                     <form onSubmit={editOn ? submitUpdate : submitForm}>
                     Nombre fruta:
@@ -20,6 +22,7 @@ const FrutasForm = () => {
                     <input type="text" id="precio" value={frutas.precio} onChange={handleInput} className="form-control" />
                     <button className="btn btn-primary mt-3">{editOn ? "Guardar cambios":"Registrar"}</button>
                     </form>
+                    {editOn && <button className="btn btn-danger mt-2" onClick={()=>setEditOn(false)}>Cancelar</button>}
                     <hr />
                     <TablaFrutas fetchFrutas={fetchFrutas} deleteFruit={deleteFruit} editFruit={editFruit} />
                    
