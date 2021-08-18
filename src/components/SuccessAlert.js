@@ -1,8 +1,8 @@
 import '../styles/estilos.css';
-const SuccessAlert = () => {
+const SuccessAlert = ({mensajeReq}) => {
     return (
         <div className="alert alert-success alert-dismissible fixed-top center-block text-center myAlert">
-            <i className="fas fa-check-circle"></i> <span style={{fontSize:'18px'}}>Fruta Registrada</span>
+            <i className="fas fa-check-circle"></i> <span style={{fontSize:'18px'}}>{mensajeReq}</span>
         </div>
     )
 }

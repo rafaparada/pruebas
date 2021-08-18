@@ -2,26 +2,26 @@ import SuccessAlert from "../SuccessAlert";
 import useFrutasForm from "../../hooks/useFrutasForm"
 import TablaFrutas from "./TablaFrutas";
 const FrutasForm = () => {
-    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit] = useFrutasForm();
+    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate] = useFrutasForm();
     return (
         <div className="container mt-5">
-            {successRequest ? <SuccessAlert />:''}
+            {successRequest ? <SuccessAlert mensajeReq={mensajeReq} />:''}
             <div className="row">
                 <div className="col-3"></div>
                 <div className="col-6 mt-3">
                     <h5>FRUTAS FORM</h5>
                     <hr />
-                    <form onSubmit={submitForm}>
+                    <form onSubmit={editOn ? submitUpdate : submitForm}>
                     Nombre fruta:
                     <input type="text" id="nombre" value={frutas.nombre} onChange={handleInput} className="form-control" />
                     Color:
                     <input type="text" id="color" value={frutas.color} onChange={handleInput} className="form-control" />
                     Precio:
                     <input type="text" id="precio" value={frutas.precio} onChange={handleInput} className="form-control" />
-                    <button className="btn btn-primary mt-3">Agregar</button>
+                    <button className="btn btn-primary mt-3">{editOn ? "Guardar cambios":"Registrar"}</button>
                     </form>
                     <hr />
-                    <TablaFrutas fetchFrutas={fetchFrutas} deleteFruit={deleteFruit} />
+                    <TablaFrutas fetchFrutas={fetchFrutas} deleteFruit={deleteFruit} editFruit={editFruit} />
                    
                 </div>
                 <div className="col-3"></div>

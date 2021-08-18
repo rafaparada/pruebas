@@ -1,5 +1,5 @@
 import FilaFrutas from "./FilaFrutas"
-const TablaFrutas = ({fetchFrutas,deleteFruit}) =>{
+const TablaFrutas = ({fetchFrutas,deleteFruit,editFruit}) =>{
 
       return(
             <table className="table table-dark table-striped">
@@ -14,7 +14,7 @@ const TablaFrutas = ({fetchFrutas,deleteFruit}) =>{
                 <tbody>
                     {
                         fetchFrutas.map(fruit=>(
-                            <FilaFrutas key={fruit.id} fruit={fruit} deleteFruit={deleteFruit} />
+                            <FilaFrutas key={fruit.id} fruit={fruit} deleteFruit={deleteFruit} editFruit={editFruit} />
                         ))
                     }
                 </tbody>
