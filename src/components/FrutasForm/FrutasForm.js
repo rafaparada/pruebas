@@ -3,10 +3,10 @@ import useFrutasForm from "../../hooks/useFrutasForm"
 import TablaFrutas from "./TablaFrutas";
 import Loading from './Loading';
 const FrutasForm = () => {
-    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn] = useFrutasForm();
+    const [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn,isLoading,myInputRef] = useFrutasForm();
     return (
         <div className="container mt-5">
-            <Loading />
+            {isLoading && <Loading />}
             {successRequest ? <SuccessAlert mensajeReq={mensajeReq} />:''}
             <div className="row">
                 <div className="col-3"></div>
@@ -15,7 +15,7 @@ const FrutasForm = () => {
                     <hr />
                     <form onSubmit={editOn ? submitUpdate : submitForm}>
                     Nombre fruta:
-                    <input type="text" id="nombre" value={frutas.nombre} onChange={handleInput} className="form-control" />
+                    <input type="text" id="nombre" ref={myInputRef} value={frutas.nombre} onChange={handleInput} className="form-control" />
                     Color:
                     <input type="text" id="color" value={frutas.color} onChange={handleInput} className="form-control" />
                     Precio:

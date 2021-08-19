@@ -1,5 +1,5 @@
 import getFrutas from "../components/FrutasForm/helpers/getFrutas";
-import { useState,useEffect } from "react"
+import { useState,useEffect,useRef} from "react"
     const useFrutasForm = () => {
 
     const [frutas,setFrutas]=useState({nombre:'',color:'',precio:''});
@@ -8,7 +8,8 @@ import { useState,useEffect } from "react"
     const [mensajeReq,setMensajeReq] = useState('');
     const [editOn,setEditOn] = useState(false);
     const [idToUpdate,setIdToUpdate]=useState(0);
-
+    const [isLoading,setIsLoading] = useState(false);
+    const myInputRef = useRef();
     useEffect(() => {
         setTimeout(() => {
             setSuccessRequest(false);
@@ -17,9 +18,11 @@ import { useState,useEffect } from "react"
     },[successRequest])
 
     useEffect(()=>{
+       setIsLoading(true);
        getFrutas().then(fruits=>{
             setFetchFrutas(fruits)
        });
+       setIsLoading(false);
     },[successRequest]);
 
     useEffect(() => {
@@ -28,6 +31,7 @@ import { useState,useEffect } from "react"
         }
     }, [editOn])
     
+    useEffect(()=>{ myInputRef.current.focus();},[]);
 
     const handleInput = (e) =>{
         const newData = {...frutas};
@@ -42,20 +46,25 @@ import { useState,useEffect } from "react"
             headers:{'Content-Type': 'application/json'},
             body:JSON.stringify(frutas)
         };
+        setIsLoading(true);
         const res     = await fetch('http://localhost:8000/crear',options);
         const data    = await res.json();
         setSuccessRequest(true);
         setMensajeReq(data.mensaje);
         setFrutas({nombre:'',color:'',precio:''});
+        setIsLoading(false);
+        myInputRef.current.focus();
     }
 
     const deleteFruit = async(id) =>{
         try{
             const options = {method:'DELETE'};
+            setIsLoading(true);
             const request = await fetch('http://localhost:8000/delete/'+id,options);
             const res     = await request.json();
             setSuccessRequest(true);
             setMensajeReq(res.mensaje);
+            setIsLoading(false);
         }catch(error){
             console.log(error);
         }
@@ -72,6 +81,7 @@ import { useState,useEffect } from "react"
         e.preventDefault();
         const frutasToUp = {...frutas,id:idToUpdate};
         const options    = {method:'PUT',headers:{'Content-type':'application/json'},body:JSON.stringify(frutasToUp)};
+        setIsLoading(true);
         const request    = await fetch('http://localhost:8000/update',options);
         const res        = await request.json();
         setMensajeReq(res.mensaje);
@@ -79,6 +89,8 @@ import { useState,useEffect } from "react"
         setIdToUpdate(0);
         setSuccessRequest(true);
         setFrutas({nombre:'',color:'',precio:''});
+        setIsLoading(false);
+        myInputRef.current.focus();
     }
 
 
@@ -89,7 +101,7 @@ import { useState,useEffect } from "react"
 
 
 
-    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn]
+    return [frutas,handleInput,submitForm,successRequest,fetchFrutas,deleteFruit,mensajeReq,editFruit,editOn,submitUpdate,setEditOn,isLoading,myInputRef]
     //Estaba enviando setFrutas y no lo utilizo en el componente, eso causaba un error que no podia encontrar
     //No enviar cosas que no se van utilizar
 }
