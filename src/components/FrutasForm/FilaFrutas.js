@@ -6,3 +6,4 @@ const FilaFrutas = ({fruit,deleteFruit,editFruit}) =>{
 }
 
 export default FilaFrutas;
+//16.10

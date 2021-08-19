@@ -9,21 +9,21 @@ import { useState,useEffect,useRef} from "react"
     const [editOn,setEditOn] = useState(false);
     const [idToUpdate,setIdToUpdate]=useState(0);
     const [isLoading,setIsLoading] = useState(false);
+    const [getFruitss,setGetFruits] = useState(0);
     const myInputRef = useRef();
-    useEffect(() => {
-        setTimeout(() => {
-            setSuccessRequest(false);
-        }, 1000);
-       
-    },[successRequest])
-
+    
+    const showAlert = () =>{
+        setSuccessRequest(true);
+        setTimeout(() => {setSuccessRequest(false)}, 1500);
+    }
+    
     useEffect(()=>{
-       setIsLoading(true);
-       getFrutas().then(fruits=>{
+        setIsLoading(true);
+        getFrutas().then(fruits=>{
             setFetchFrutas(fruits)
-       });
-       setIsLoading(false);
-    },[successRequest]);
+        });
+        setIsLoading(false);
+    },[getFruitss]);
 
     useEffect(() => {
         if(!editOn){
@@ -35,7 +35,7 @@ import { useState,useEffect,useRef} from "react"
 
     const handleInput = (e) =>{
         const newData = {...frutas};
-        newData[e.target.id] = e.target.value;
+        newData[e.target.id] = e.target.value.toUpperCase();
         setFrutas(newData);
     } 
 
@@ -49,11 +49,12 @@ import { useState,useEffect,useRef} from "react"
         setIsLoading(true);
         const res     = await fetch('http://localhost:8000/crear',options);
         const data    = await res.json();
-        setSuccessRequest(true);
+        showAlert();
         setMensajeReq(data.mensaje);
         setFrutas({nombre:'',color:'',precio:''});
         setIsLoading(false);
         myInputRef.current.focus();
+        setGetFruits(Date.now());
     }
 
     const deleteFruit = async(id) =>{
@@ -62,13 +63,15 @@ import { useState,useEffect,useRef} from "react"
             setIsLoading(true);
             const request = await fetch('http://localhost:8000/delete/'+id,options);
             const res     = await request.json();
-            setSuccessRequest(true);
+            showAlert();
             setMensajeReq(res.mensaje);
             setIsLoading(false);
+            setGetFruits(Date.now());
         }catch(error){
             console.log(error);
         }
     }
+    
 
     const editFruit = id =>{
         const {nombre,color,precio} = fetchFrutas.find(fruit=>(fruit.id === id));
@@ -87,10 +90,11 @@ import { useState,useEffect,useRef} from "react"
         setMensajeReq(res.mensaje);
         setEditOn(false);
         setIdToUpdate(0);
-        setSuccessRequest(true);
+        showAlert();
         setFrutas({nombre:'',color:'',precio:''});
         setIsLoading(false);
         myInputRef.current.focus();
+        setGetFruits(Date.now());
     }
 
 
