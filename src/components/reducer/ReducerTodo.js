@@ -1,21 +1,32 @@
-import { useReducer } from 'react'
+import { useReducer,useEffect } from 'react'
 import todoReducer from './todoReducer';
 import useForm from '../../hooks/useForm';
-const initialState = [{
-    id:Date.now(),
-    desc:'Comprar pan',
-    done:false
-}];
+
+const init = () =>{
+    return JSON.parse(localStorage.getItem('todos')) || [];
+}
 
 const ReducerTodo = () => {
-    const [todos,dispatch] = useReducer(todoReducer,initialState);
-    const [{description},handleInputChange] = useForm({description:''});
+    const [todos,dispatch] = useReducer(todoReducer,[],init);
+    const [{description},handleInputChange,reset] = useForm({description:''});
+
     const handleAddTodo = (e) =>{
         e.preventDefault();
+        if(description.trim().length <2) return;
         const newTodo = {id:Date.now(),desc:description,done:false};
         const action = {type:'add',payload:newTodo};
         dispatch(action);
+        reset();
     }
+
+    const handleDelete = (todoId)=>{
+        const action = {type:'delete',payload:todoId};
+        dispatch(action);
+    }
+
+    useEffect(() => {
+       localStorage.setItem("todos",JSON.stringify(todos));
+    }, [todos])
 
     return (
         <div className="container mt-4">
@@ -40,7 +51,7 @@ const ReducerTodo = () => {
                         <tbody>
                         {
                             todos.map((todo,i)=>(
-                                <tr key={todo.id}><td>{i+1}</td><td>{todo.desc}</td><td><button type="submit" className="btn btn-danger">Borrar</button></td></tr>
+                                <tr key={todo.id}><td>{i+1}</td><td>{todo.desc}</td><td><button onClick={()=>handleDelete(todo.id)} className="btn btn-danger">Borrar</button></td></tr>
                             ))
                         }
                         </tbody>
