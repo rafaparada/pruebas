@@ -1,6 +1,8 @@
-import { useReducer,useEffect } from 'react'
+import { useReducer,useEffect, memo } from 'react'
 import todoReducer from './todoReducer';
 import useForm from '../../hooks/useForm';
+import './estilos/estilos.css';
+import TableTodos from './TableTodos';
 
 const init = () =>{
     return JSON.parse(localStorage.getItem('todos')) || [];
@@ -24,6 +26,11 @@ const ReducerTodo = () => {
         dispatch(action);
     }
 
+    const handleClickDone = (todoId) => {
+        const action = {type:'toggle',payload:todoId};
+        dispatch(action);
+    }
+
     useEffect(() => {
        localStorage.setItem("todos",JSON.stringify(todos));
     }, [todos])
@@ -40,27 +47,14 @@ const ReducerTodo = () => {
                         <button className="btn btn-outline-primary mt-3">Crear</button>
                     </form>
                     <hr/>
-                    <table className="table table-dark table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>TAREA</th>
-                                <th>ACCION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            todos.map((todo,i)=>(
-                                <tr key={todo.id}><td>{i+1}</td><td>{todo.desc}</td><td><button onClick={()=>handleDelete(todo.id)} className="btn btn-danger">Borrar</button></td></tr>
-                            ))
-                        }
-                        </tbody>
-                    </table>
+                    <TableTodos todos={todos} handleDelete={handleDelete} handleClickDone={handleClickDone} />
                 </div>
                 <div className="col-3"></div>
             </div>
         </div>
     )
 }
+
+
 
 export default ReducerTodo
