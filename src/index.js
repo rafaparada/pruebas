@@ -1,7 +1,8 @@
 import reactDom from 'react-dom';
-import ReducerTodo from './components/reducer/ReducerTodo';
+//import ReducerTodo from './components/reducer/ReducerTodo';
+import MathReducer from './MattReducer/MathReducer';
 reactDom.render(
-    <ReducerTodo />,
+    <MathReducer />,
   document.getElementById('root')
 );
 
