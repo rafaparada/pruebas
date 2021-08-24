@@ -2,17 +2,21 @@ import CardResult from "./CardResult"
 import { useReducer,useState } from "react";
 import functionReducer from './functionReducer';
 const init = () =>{
-    const nums = {result:0};
-    return nums;
+    return 0;
 }
 const MathReducer = () =>{
-    const [state,dispatch] = useReducer(functionReducer,[],init);
-    const [nums,setNums]=useState([{num1:0,num2:0}]);
+    const [state,dispatch] = useReducer(functionReducer,0,init);
+    const [nums,setNums]=useState({num1:0,num2:0});
     
     const handleInput = (e) =>{
-        console.log(e.target.name+" -> "+e.target.value);
-        //const myNums = nums[e.target.name] = e.target.value;
-        //setNums(myNums);
+        const myNums = {...nums};
+       myNums[e.target.name] = e.target.value;
+        setNums(myNums);
+    }
+
+    const handleSelect = (e)=>{
+        const action = {type:e.target.value,payload:nums};
+        dispatch(action);
     }
 
     return(
@@ -27,14 +31,17 @@ const MathReducer = () =>{
                     SEGUNDO NUMERO
                     <input type="text" name="num2" className="form-control" onChange={handleInput}/>
                     SELECCIONE LA OPERACION
-                    <select className="form-select">
+                    <select className="form-select" onChange={handleSelect}>
                         <option value="suma">SUMA</option>
                         <option value="resta">RESTA</option>
                         <option value="multiplicacion">MULTIPLICACION</option>
                         <option value="division">DIVISION</option>
                     </select>
                     <hr />
-                    <CardResult result={state.result}/>
+                    <pre>
+                        {JSON.stringify(nums)}
+                    </pre>
+                    <CardResult result={state}/>
                 </div>
                 <div className="col-3"></div>
             </div>
