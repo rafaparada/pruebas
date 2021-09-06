@@ -1,8 +1,7 @@
 import reactDom from 'react-dom';
-//import ReducerTodo from './components/reducer/ReducerTodo';
-import MathReducer from './MattReducer/MathReducer';
+import TablaDinamica from './TablaDinamica';
 reactDom.render(
-    <MathReducer />,
-  document.getElementById('root')
+    <TablaDinamica />,
+    document.getElementById('root')
 );
 

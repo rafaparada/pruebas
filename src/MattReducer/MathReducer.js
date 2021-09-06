@@ -5,7 +5,7 @@ const init = () =>{
     return 0;
 }
 const MathReducer = () =>{
-    const [state,dispatch] = useReducer(functionReducer,0,init);
+    const [resultado,dispatch] = useReducer(functionReducer,0,init);
     const [nums,setNums]=useState({num1:0,num2:0});
     
     const handleInput = (e) =>{
@@ -39,9 +39,8 @@ const MathReducer = () =>{
                     </select>
                     <hr />
                     <pre>
-                        {JSON.stringify(nums)}
                     </pre>
-                    <CardResult result={state}/>
+                    <CardResult result={resultado}/>
                 </div>
                 <div className="col-3"></div>
             </div>
