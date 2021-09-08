@@ -1,7 +1,7 @@
 import reactDom from 'react-dom';
-import TablaDinamica from './TablaDinamica';
+import CounterReducer from './CounterReducer';
 reactDom.render(
-    <TablaDinamica />,
+    <CounterReducer />,
     document.getElementById('root')
 );
 
