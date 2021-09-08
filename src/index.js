@@ -1,7 +1,7 @@
 import reactDom from 'react-dom';
-import CounterReducer from './CounterReducer';
+import CrudReducer from './crudreducer/CrudReducer';
 reactDom.render(
-    <CounterReducer />,
+    <CrudReducer />,
     document.getElementById('root')
 );
 
