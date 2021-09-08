@@ -21,7 +21,7 @@ const TablaDinamica = () => {
             for(let k = 1; k <= nCR.cols; k++) {
                 let keyTd = `${i}-${k}`;
                 let myNum = aleatorio();
-                cells.push(<td className={isColored?"alert alert-info":'alert alert-success'} key={keyTd} id={`id${keyTd}`}>{myNum}</td>)
+                cells.push(<td className={isColored?"alert alert-info":'alert alert-success'} key={keyTd} id={`id${keyTd}`}>{keyTd}</td>)
             }
             trows.push(<tr key={i}>{cells}</tr>)
         }
