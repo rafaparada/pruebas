@@ -1,11 +1,21 @@
-import {useState,useReducer} from 'react';
+import {useState,useReducer,useRef,useEffect} from 'react';
 import type from './types';
 import reducer from './reducer';
 const initialValues = [];
+const initialValuesPerson =  {id:'',nombres:'',apellidos:'',telefono:''};
+const init = () =>{
+    return JSON.parse(localStorage.getItem('personas')) || [];
+}
 export const useCrudReducer = () => {
-    const [personas,dispatch]=useReducer(reducer,initialValues);
-    const [persona,setPersona] = useState({id:1,nombres:'',apellidos:'',telefono:''});
-    const [editOn,setEditOn] = useState(false);
+    const [personas,dispatch]  = useReducer(reducer,initialValues,init);
+    const [persona,setPersona] = useState(initialValuesPerson);
+    const [editOn,setEditOn]   = useState(false);
+    const myInputRef = useRef();
+    
+    useEffect(()=>{
+        myInputRef.current.focus();
+    },[]);
+
     const handleInput = e =>{
         const nuevaPersona = {...persona};
         nuevaPersona[e.target.name] = e.target.value;
@@ -17,14 +27,17 @@ export const useCrudReducer = () => {
         if(!editOn){
             const person = {...persona,id:Date.now()};
             const action = {type:type.create,payload:person};
+            localStorage.setItem('personas',JSON.stringify([...personas,person]));
             dispatch(action);
         }else{
             const personEdit = {...persona};
             const action = {type:type.update,payload:personEdit};
+            localStorage.setItem('personas',JSON.stringify(personas.map(p=>p.id===personEdit.id ? {...personEdit}:p)));
             dispatch(action);
             setEditOn(false);
         }
-        
+        setPersona(initialValuesPerson);
+        myInputRef.current.focus();
     }
 
     const prepararEdit = (data)=>{
@@ -35,16 +48,19 @@ export const useCrudReducer = () => {
 
     const handleCancel = () =>{
         setEditOn(false);
+        setPersona(initialValuesPerson);
+        myInputRef.current.focus();
     }
 
     const handleDelete = (id) =>{
         const action = {type:type.delete,payload:id};
+        localStorage.setItem('personas',JSON.stringify(personas.filter(p=>p.id !==id)));
         dispatch(action);
     }
 
 
 
-    return [persona,personas,handleInput,handleSubmit,prepararEdit,editOn,handleCancel,handleDelete];
+    return [persona,personas,handleInput,handleSubmit,prepararEdit,editOn,handleCancel,handleDelete,myInputRef];
 
 }
 

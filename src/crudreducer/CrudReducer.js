@@ -1,8 +1,8 @@
 import { useCrudReducer } from "./useCrudReducer";
 const CrudReducer = () =>{
-    const [persona,personas,handleInput,handleSubmit,prepararEdit,editOn,handleCancel,handleDelete] = useCrudReducer();
+    const [persona,personas,handleInput,handleSubmit,prepararEdit,editOn,handleCancel,handleDelete,myInputRef] = useCrudReducer();
     return(
-        <div className="container">
+        <div className="container mt-5">
             <div className="row">
                 <div className="col-3"></div>
                 <div className="col-6">
@@ -10,10 +10,10 @@ const CrudReducer = () =>{
                     <hr/>
                     <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Nombres:</label>
-                    <input type="text" className="form-control" value={persona.nombres} onChange={handleInput} name="nombres" id="name" />
+                    <input type="text" ref={myInputRef} className="form-control" value={persona.nombres} onChange={handleInput} name="nombres" id="name" />
                     <label htmlFor="name">Apellidos:</label>
                     <input type="text" className="form-control" value={persona.apellidos} onChange={handleInput} name="apellidos" id="apellidos" />
-                    <label htmlFor="name">telefono:</label>
+                    <label htmlFor="name">Télefono:</label>
                     <input type="text" className="form-control" value={persona.telefono} onChange={handleInput} name="telefono" id="telefono" />
                         <button  type="submit" className="btn btn-primary mt-2">{!editOn ? 'Registrar':'Guardar Cambios'}</button>
                         {editOn && <button type="button" className="btn btn-danger ms-4 mt-2" onClick={()=>handleCancel()}>Cancelar</button>}
