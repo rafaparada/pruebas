@@ -1,0 +1,28 @@
+.miInput{
+    height: 50px;
+    font-size: 30px;
+
+}
+.miBox{
+    background-color: lightsteelblue;
+    height:200px;
+    width:600px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.box{
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bggeneral{
+    background-color: cadetblue;
+}
+

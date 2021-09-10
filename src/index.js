@@ -1,7 +1,7 @@
 import reactDom from 'react-dom';
-import CrudReducer from './crudreducer/CrudReducer';
+import MyApp from './crudreducer/MyApp';
 reactDom.render(
-    <CrudReducer />,
+    <MyApp />,
     document.getElementById('root')
 );
 
