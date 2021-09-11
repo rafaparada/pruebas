@@ -1,10 +1,21 @@
-import { createContext } from "react";
-
-const MyContext = createContext();
-
+import { createContext,useState } from "react";
+const CrudContext = createContext();
+const data = {user:''};
 const CrudProvider = ({children}) =>{
+    const [user,setUser] = useState({name:'',login:false});
+    
+    const login = (user) =>{
+        setUser({name:user,login:true});
+    }
+
+    const logout = () =>{
+        setUser(null);
+    }
+
+    const data = {user,login,logout};
+
     return(
-        <CrudContext.Provider>
+        <CrudContext.Provider value={data}>
             {children}
         </CrudContext.Provider>
     )
@@ -12,4 +23,4 @@ const CrudProvider = ({children}) =>{
 
 export {CrudProvider};
 
-export default MyContext;
+export default CrudContext;

@@ -1,8 +1,10 @@
-import Login from "./Login"
-
+import AppRouter from "./AppRouter"
+import MyContext,{CrudProvider} from "./MyContext"
 const MyApp = () => {
     return (
-        <Login />
+        <CrudProvider>
+            <AppRouter />
+        </CrudProvider>
     )
 }
 
