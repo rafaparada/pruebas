@@ -7,8 +7,18 @@ const Login = () => {
         myInputRef.current.focus();
     },[]);
 
-    const handleSutmit = () =>{
-        
+    const handleSutmit = e =>{
+        if(e.key==="Enter"){
+            if(validate(user)){
+                alert("Válido");
+            }else{
+              alert("No Válido");
+            }
+        }
+    }
+
+    const validate=(text)=>{
+        return (text.trim().length >= 1) ? true : false; 
     }
 
     return (
@@ -17,7 +27,7 @@ const Login = () => {
                 <div className="col-3 bggeneral"></div>    
                 <div className="col-6 box">
                     <div className="miBox rounded align-middle">
-                        <input ref={myInputRef} value={user} onChange={(e)=>setUser(e.target.value)} className="form-control miInput text-uppercase" type="text" placeholder = "Cual es tu nombre" />
+                        <input ref={myInputRef} value={user} onKeyUp={(e)=>handleSutmit(e)} onChange={(e)=>setUser(e.target.value)} className="form-control miInput text-uppercase" type="text" placeholder = "Enter your name" />
                     </div>
                 </div>    
                 <div className="col-3 bggeneral"></div>    
