@@ -1,7 +1,10 @@
+import NavBar from "./NavBar";
 import { useCrudReducer } from "./useCrudReducer";
 const CrudReducer = () =>{
     const [persona,personas,handleInput,handleSubmit,prepararEdit,editOn,handleCancel,handleDelete,myInputRef] = useCrudReducer();
     return(
+        <div>
+        <NavBar />
         <div className="container mt-5">
             <div className="row">
                 <div className="col-3"></div>
@@ -44,6 +47,7 @@ const CrudReducer = () =>{
                 </div>
                 <div className="col-3"></div>
             </div>
+        </div>
         </div>
     );
 }

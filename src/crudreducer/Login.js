@@ -1,12 +1,12 @@
 import './estilos.css';
-import { useState,useRef,useEffect} from 'react';
+import { useState,useRef,useEffect,useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import CrudContext from './MyContext';
 const Login = () => {
     const [user,setUser] = useState('');
     const myInputRef = useRef();
     const history = useHistory();
-    const {name,login} = CrudContext();
+    const {usuario,logged,login} =  useContext(CrudContext);
     useEffect(()=>{
         myInputRef.current.focus();
     },[]);
@@ -15,6 +15,7 @@ const Login = () => {
         if(e.key==="Enter"){
             if(validate(user)){
                login(user);
+               history.push('/home');
             }else{
               alert("No Válido");
             }
@@ -27,7 +28,6 @@ const Login = () => {
 
     return (
         <div className="container bggeneral">
-            {name}
             <div className="row">
                 <div className="col-3 bggeneral"></div>    
                 <div className="col-6 box">
